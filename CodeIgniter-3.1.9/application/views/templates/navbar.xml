@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nav id="main-nav">
+    <ul>
+        <li>
+            <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/home">
+                Home
+            </a>
+        </li>
+        <li>
+            <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/about-us">
+                About US
+            </a>
+            <ul>
+                <li>
+                    <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/about-us#who">
+                        Who
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/about-us#where">
+                        Where
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/about-us#what">
+                        What
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/about-us#why">
+                        Why
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/about-us#how">
+                        How
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/home">
+                Articles
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                Others...
+            </a>
+            <ul>
+                <li>
+                    <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/contact">
+                        Contact
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/privacy-policy">
+                        Privacy Policy
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/term-of-service">
+                        Term of Service
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/register">
+                        Register
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/log-in">
+                        Log in
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/log_out">
+                        Log out
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>
