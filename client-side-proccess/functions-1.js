@@ -1,307 +1,174 @@
-const BACKGROUNDS_PATH = 'http://localhost/borneo-dream-space-laboratory/media/pictures/web-components/backgrounds/',
-    HEADER = document.getElementsByTagName('header')[0],
-    BACKGROUNDS = document.getElementById('backgrounds'),
-    BACKGROUND_NAVS = document.getElementsByClassName('background-navs'),
-    TITLE = document.getElementById('title'),
-    YOUR_IMAGE = document.getElementById('your-image'),
-    NAME = document.getElementById('name'),
-    E_MAIL = document.getElementById('eMail'),
-    COMMENT = document.getElementById('comment'),
-    COMMENTATOR_PICTURE = document.getElementById('commentator-picture'),
-    LIKE_ARTICLE = document.getElementById('like-article'),
-    DISLIKE_ARTICLE = document.getElementById('dislike-article'),
-    BACKGROUNDS_SOURCE = [],
-    WEB_COMPONENTS = 'http://localhost/borneo-dream-space-laboratory/media/pictures/web-components/',
-    BUTTONS_PATH = [
-        WEB_COMPONENTS + 'buttons/like-2.png',
-        WEB_COMPONENTS + 'buttons/like-hover-2.png',
-        WEB_COMPONENTS + 'buttons/dislike-2.png',
-        WEB_COMPONENTS + 'buttons/dislike-hover-2.png'
-    ],
-    COMMENTATOR_PICTURES_PATH = [
-        WEB_COMPONENTS + 'commentator-pictures/1.png',
-        WEB_COMPONENTS + 'commentator-pictures/2.png',
-        WEB_COMPONENTS + 'commentator-pictures/3.png',
-        WEB_COMPONENTS + 'commentator-pictures/4.png',
-        WEB_COMPONENTS + 'commentator-pictures/5.png'
-    ];
+var app = angular.module('bdsl', [])
 
-var slide = undefined,
-    slidePointer = 0,
-    commentatorPicturePointer = 0;
+app.constant('BACKGROUNDS_PATH', 'http://localhost/borneo-dream-space-laboratory/media/pictures/web-components/backgrounds/')
+app.constant('WEB_COMPONENTS', 'http://localhost/borneo-dream-space-laboratory/media/pictures/web-components/')
+app.constant('HEADER', angular.element('header'))
+app.constant('BACKGROUNDS', angular.element('#backgrounds'))
+app.constant('BACKGROUND_NAV_1', angular.element('.background-navs:nth-child(1)'))
+app.constant('BACKGROUND_NAV_2', angular.element('.background-navs:nth-child(2)'))
+app.constant('TITLE', angular.element('#title'))
+app.constant('YOUR_IMAGE', angular.element('#your-image'))
+app.constant('LIKE_ARTICLE', angular.element('#like-article'))
+app.constant('DISLIKE_ARTICLE', angular.element('#dislike-article'))
+app.constant('BACKGROUNDS_SOURCE', [])
+app.constant('BUTTONS_PATH', [])
+app.constant('COMMENTATOR_PICTURES_PATH', [])
 
-var path = location.protocol + "//" + location.hostname + location.pathname;
-var image =  [];
-var x = 0;
-var search;
-var transition = 0;
-var kategori;
+app.value('slidePointer', 0)
+app.value('slide', undefined)
+app.value('commentatorPicturePointer', 0)
+app.value('x', 0)
+app.value('navButton', undefined)
 
-function changeBackground() {
-    if(slidePointer < BACKGROUNDS_SOURCE.length) {
-        BACKGROUNDS.style.backgroundImage = 'url(' + BACKGROUNDS_SOURCE[slidePointer] + ')';
-    } else {
-        slidePointer = 0;
+app.controller('controller1', function($scope, $interval, $http, BACKGROUNDS_SOURCE, BACKGROUNDS_PATH, BUTTONS_PATH,
+    WEB_COMPONENTS, HEADER, BACKGROUNDS, BACKGROUND_NAV_1, BACKGROUND_NAV_2, YOUR_IMAGE,
+    LIKE_ARTICLE, DISLIKE_ARTICLE, BACKGROUNDS_SOURCE, BUTTONS_PATH, COMMENTATOR_PICTURES_PATH, slidePointer, slide,
+    commentatorPicturePointer, x, navButton) {
+    $scope.btnImage1 = $scope.btnImage2 = ''
 
-        BACKGROUNDS.style.backgroundImage = 'url(' + BACKGROUNDS_SOURCE[slidePointer] + ')';
+    $scope.reset = function() {
+        YOUR_IMAGE.attr('src', COMMENTATOR_PICTURES_PATH[0])
+
+        $scope.commentatorPicture = COMMENTATOR_PICTURES_PATH[0]
+        $scope.name = ''
+        $scope.eMail = ''
+        $scope.comment = ''
+
+        commentatorPicturePointer = 0
     }
 
-    ++slidePointer;
-}
+    $scope.setPages = function() {
+        BACKGROUNDS_SOURCE.push(BACKGROUNDS_PATH + '1.jpg')
+        BACKGROUNDS_SOURCE.push(BACKGROUNDS_PATH + '2.jpg')
+        BACKGROUNDS_SOURCE.push(BACKGROUNDS_PATH + '3.jpg')
+        BACKGROUNDS_SOURCE.push(BACKGROUNDS_PATH + '4.jpg')
+        BACKGROUNDS_SOURCE.push(BACKGROUNDS_PATH + '5.jpg')
 
-function toBackground(x) {
-    if(x >= 0 && x < BACKGROUNDS_SOURCE.length) {
-        BACKGROUNDS.style.backgroundImage = 'url(' + BACKGROUNDS_SOURCE[slidePointer] + ')';
-    }
-}
+        BACKGROUND_NAV_1.css('top', (window.innerHeight - 43) / 2)
+        BACKGROUND_NAV_2.css('top', (window.innerHeight - 43) / 2)
 
-function nextBackground() {
-    ++slidePointer;
+        BUTTONS_PATH.push(WEB_COMPONENTS + 'buttons/like-2.png')
+        BUTTONS_PATH.push(WEB_COMPONENTS + 'buttons/like-hover-2.png')
+        BUTTONS_PATH.push(WEB_COMPONENTS + 'buttons/dislike-2.png')
+        BUTTONS_PATH.push(WEB_COMPONENTS + 'buttons/dislike-hover-2.png')
 
-    if(slidePointer >= BACKGROUNDS_SOURCE.length) {
-        slidePointer = 0;
-    }
+        COMMENTATOR_PICTURES_PATH.push(WEB_COMPONENTS + 'commentator-pictures/1.png')
+        COMMENTATOR_PICTURES_PATH.push(WEB_COMPONENTS + 'commentator-pictures/2.png')
+        COMMENTATOR_PICTURES_PATH.push(WEB_COMPONENTS + 'commentator-pictures/3.png')
+        COMMENTATOR_PICTURES_PATH.push(WEB_COMPONENTS + 'commentator-pictures/4.png')
+        COMMENTATOR_PICTURES_PATH.push(WEB_COMPONENTS + 'commentator-pictures/5.png')
 
-    BACKGROUNDS.style.backgroundImage = 'url(' + BACKGROUNDS_SOURCE[slidePointer] + ')';
-}
+        HEADER.css('height', window.innerHeight - 57 + 'px')
 
-function previousBackground() {
-    --slidePointer;
+        BACKGROUNDS.css('background-image', 'url(' + BACKGROUNDS_SOURCE[slidePointer] + ')')
 
-    if(slidePointer < 0) {
-        slidePointer = BACKGROUNDS_SOURCE.length - 1;
-    }
+        $scope.btnImage1 = BUTTONS_PATH[0]
+        $scope.btnImage2 = BUTTONS_PATH[2]
+        $scope.commentatorPicture = COMMENTATOR_PICTURES_PATH[commentatorPicturePointer]
 
-    BACKGROUNDS.style.backgroundImage = 'url(' + BACKGROUNDS_SOURCE[slidePointer] + ')';
-}
+        if(!(angular.isDefined(navButton))) {
+            for(x = 0; x < BACKGROUNDS_SOURCE.length; ++x) {
+                navButton = document.createElement('div')
 
-function setPages() {
-    BACKGROUNDS_SOURCE.push(BACKGROUNDS_PATH + '1.jpg');
-    BACKGROUNDS_SOURCE.push(BACKGROUNDS_PATH + '2.jpg');
-    BACKGROUNDS_SOURCE.push(BACKGROUNDS_PATH + '3.jpg');
-    BACKGROUNDS_SOURCE.push(BACKGROUNDS_PATH + '4.jpg');
-    BACKGROUNDS_SOURCE.push(BACKGROUNDS_PATH + '5.jpg');
+                navButton.className = 'nav-buttons'
+                navButton.setAttribute('data-ng-click', 'toBackground(' + x + ')')
 
-    HEADER.style.height  = window.innerHeight - 57 + 'px';
+                BACKGROUNDS.append(navButton)
+            }
 
-    BACKGROUND_NAVS[0].style.top = (window.innerHeight - 57 - 43) / 2 + 'px';
-    BACKGROUND_NAVS[1].style.top = (window.innerHeight - 57 - 43) / 2 + 'px';
-
-    for(let x = 0; x < BACKGROUNDS_SOURCE.length; ++x) {
-        backgrounds.innerHTML += '<div class="nav-buttons" onclick="toBackground(' + x + ')"></div>';
-    }
-
-    BACKGROUNDS.style.backgroundImage = 'url(' + BACKGROUNDS_SOURCE[slidePointer] + ')';
-
-    ++slidePointer;
-
-    slide = setInterval(changeBackground, 3000);
-}
-
-function reset() {
-    YOUR_IMAGE.src = COMMENTATOR_PICTURES_PATH[0];
-    COMMENTATOR_PICTURE.value = COMMENTATOR_PICTURES_PATH[0];
-    NAME.value = '';
-    E_MAIL.value = '';
-    COMMENT.value = '';
-
-    commentatorPicturePointer = 0;
-}
-
-/*function analyze() {
-    let CommentatorPictureValue = COMMENTATOR_PICTURE.value,
-        nameValue = NAME.value,
-        eMailValue = E_MAIL.value,
-        commentValue = COMMENT.value,
-        eMailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        error = '';
-
-    if(nameValue === '') {
-        error += 'Kolom nama belum diisi!;';
-    }
-
-    if(eMailValue === '') {
-        error += 'Kolom email belum diisi!;\n';
-    } else if (!eMailPattern.test(eMailValue)) {
-        error += 'Email tidak valid!;\n';
-    }
-
-    if(commentValue === '') {
-        error += 'Kolom komentar belum diisi!;\n';
-    }
-
-    if(error !== "") {
-        window.alert(error);
-        return false;
-    }
-
-    reset()
-
-    var ajax = new XMLHttpRequest();
-    var comment = "../../server_proccess/comment_proccessor.php?foto=" + foto + "&nama=" + nama + "&email=" + email + "&komentar=" + komentar +
-    "&path=" + path;
-
-    ajax.onreadystatechange = function() {
-        if(this.readyState === 4 && this.status === 200) {
-            var element = document.createElement("table");
-            element.innerHTML = ajax.responseText;
-            document.getElementById("comment_list").appendChild(element);
-            document.getElementById('comment_list').style.display = 'block';
-        }
-    };
-
-    ajax.open("GET", comment, true);
-    ajax.send();
-}
-
-function analyze2() {
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
-
-    var error = "";
-
-    if(innerWidth > 768) {
-        if(username === "") {
-            error += "<div class='warning'>Kolom username belum diisi!</div>";
-        }
-
-        if(password === "") {
-            error += "<div class='warning'>Kolom password belum diisi!</div>";
-        }
-
-        if(error !== "") {
-            createAlertBox("warning", error);
-            return false;
-        }
-    } else {
-        if(username === "") {
-            error += "Kolom username belum diisi!;\n";
-        }
-
-        if(password === "") {
-            error += "Kolom password belum diisi!;\n";
-        }
-
-        if(error !== "") {
-            window.alert(error);
-            return false;
+            ++slidePointer
         }
     }
 
-    reset();
+    $scope.moveSlide = function() {
+        if(angular.isDefined(slide)) return
 
-    var ajax = new XMLHttpRequest();
-    ajax.open("POST", "../../server_proccess/login_2.php");
-    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        slide = $interval(function() {
+            if(slidePointer >= BACKGROUNDS_SOURCE.length) slidePointer = 0
 
-    var request = "kategori=" + kategori + "&username=" + username + "&password=" + password;
-    ajax.send(request);
-}
+            BACKGROUNDS.css('background-image', 'url(' + BACKGROUNDS_SOURCE[slidePointer] + ')')
 
-function increase() {
-    transition += 10;
-    document.getElementById("search_form").style.width = transition + "px";
-
-    if(transition === 160) {
-        clearInterval(search);
-    }
-}
-
-function decrease() {
-    transition -= 20;
-    document.getElementById("search_form").style.width = transition + "px";
-
-    if(transition === 0) {
-        clearInterval(search);
-    }
-}
-
-function open_form() {
-    if(document.getElementById("search_form").style.width !== "160px") {
-        document.getElementById("search_form").style.display = "inline-block";
-        search = setInterval(increase, 1);
-    } else if (document.getElementById("search_form").style.width === "160px" && document.getElementById("search_form").value === "") {
-        search = setInterval(decrease, 1);
-    } else {
-        var keyword = "../../page/search_article/search_article.php?keyword=" +  document.getElementById("search_form").value;
-        search = setInterval(decrease, 1);
-        document.getElementById("search_form").value = "";
-        open(keyword);
-    }
-}*/
-
-function previous() {
-    --commentatorPicturePointer;
-
-    if(commentatorPicturePointer < 0) {
-        commentatorPicturePointer = COMMENTATOR_PICTURES_PATH.length - 1;
+            ++slidePointer;
+        }, 5000)
     }
 
-    YOUR_IMAGE.src = COMMENTATOR_PICTURES_PATH[commentatorPicturePointer];
-    COMMENTATOR_PICTURE.value = YOUR_IMAGE.src;
-}
+    $scope.destroyInterval = function() {
+        if(angular.isDefined(slide)) {
+            $interval.cancel(slide)
 
-function next() {
-    ++commentatorPicturePointer;
-
-    if(commentatorPicturePointer >= COMMENTATOR_PICTURES_PATH.length) {
-        commentatorPicturePointer = 0;
-    }
-
-    YOUR_IMAGE.src = COMMENTATOR_PICTURES_PATH[commentatorPicturePointer];
-    COMMENTATOR_PICTURE.value = YOUR_IMAGE.src;
-}
-
-function change1(a) {
-    a.children[0].src = BUTTONS_PATH[1];
-}
-
-function change2(a) {
-    a.children[0].src = BUTTONS_PATH[0];
-}
-
-function change3(a) {
-    a.children[0].src = BUTTONS_PATH[3];
-}
-
-function change4(a) {
-    a.children[0].src = BUTTONS_PATH[2];
-}
-
-function likeArticle($article_id) {
-    let ajax = new XMLHttpRequest(),
-        likeArticle = 'http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/articles/like_article/' + $article_id;
-
-    ajax.onreadystatechange = function() {
-        if(this.readyState === 4 && this.status === 200) {
-            LIKE_ARTICLE.innerHTML = ajax.responseText;
+            slide = undefined
         }
-    };
+    }
 
-    ajax.open('POST', likeArticle, true);
-    ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    ajax.send();
-}
+    $scope.previousBackground = function() {
+        --slidePointer
 
-function dislikeArticle($article_id) {
-    let ajax = new XMLHttpRequest(),
-        dislikeArticle = 'http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/articles/dislike_article/' + $article_id;
+        if(slidePointer < 0) slidePointer = BACKGROUNDS_SOURCE.length - 1
 
-    ajax.onreadystatechange = function() {
-        if(this.readyState === 4 && this.status === 200) {
-            DISLIKE_ARTICLE.innerHTML = ajax.responseText;
+        BACKGROUNDS.css('background-image', 'url(' + BACKGROUNDS_SOURCE[slidePointer] + ')')
+    }
+
+    $scope.nextBackground = function() {
+        ++slidePointer;
+
+        if(slidePointer >= BACKGROUNDS_SOURCE.length) slidePointer = 0;
+
+        BACKGROUNDS.css('background-image', 'url(' + BACKGROUNDS_SOURCE[slidePointer] + ')')
+    }
+
+    $scope.toBackground = function(x) {
+        if(x >= 0 && x < BACKGROUNDS_SOURCE.length) {
+            slidePointer = x
+
+            BACKGROUNDS.css('background-image', 'url(' + BACKGROUNDS_SOURCE[slidePointer] + ')')
         }
-    };
+    }
 
-    ajax.open('POST', dislikeArticle);
-    ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    ajax.send();
-}
+    $scope.next = function() {
+        if(commentatorPicturePointer >= COMMENTATOR_PICTURES_PATH.length) commentatorPicturePointer = 0
 
-function likeComment(a, b, c) {
-    location.assign('http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/articles/like_comment/' + a + '/' + b + '/' + c);
-}
+        YOUR_IMAGE.attr('src', COMMENTATOR_PICTURES_PATH[commentatorPicturePointer])
 
-function dislikeComment(a, b, c) {
-    location.assign('http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/articles/dislike_comment/' + a + '/' + b + '/' + c);
-}
+        $scope.commentatorPicture = COMMENTATOR_PICTURES_PATH[commentatorPicturePointer]
+
+        ++commentatorPicturePointer
+    }
+
+    $scope.previous = function() {
+        if(commentatorPicturePointer < 0) commentatorPicturePointer = COMMENTATOR_PICTURES_PATH.length - 1
+
+        YOUR_IMAGE.attr('src', COMMENTATOR_PICTURES_PATH[commentatorPicturePointer])
+
+        $scope.commentatorPicture = COMMENTATOR_PICTURES_PATH[commentatorPicturePointer]
+
+        --commentatorPicturePointer
+    }
+
+    $scope.change1 = event => angular.element(event.target).children('img:first').attr('src', BUTTONS_PATH[1])
+
+    $scope.change2 = event => angular.element(event.target).children('img:first').attr('src', BUTTONS_PATH[0])
+
+    $scope.change3 = event => angular.element(event.target).children('img:first').attr('src', BUTTONS_PATH[3])
+
+    $scope.change4 = event => angular.element(event.target).children('img:first').attr('src', BUTTONS_PATH[2])
+
+    $scope.likeArticle = article_id => $http.post('http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/articles/like_article/' + article_id)
+        .then(function(response) {
+            LIKE_ARTICLE.text(response.data)
+    })
+
+    $scope.dislikeArticle = article_id => $http.post('http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/articles/dislike_article/' + article_id)
+        .then(function(response) {
+            DISLIKE_ARTICLE.text( response.data)
+    })
+
+    $scope.likeComment = (a, b, c) => $http.post('http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/articles/like_comment/' + a + '/' + b)
+        .then(function(response) {
+            angular.element('#like-' + c).text(response.data)
+    })
+
+    $scope.dislikeComment = (a, b, c) => $http.post('http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/articles/dislike_comment/' + a + '/' + b)
+        .then(function(response) {
+            angular.element('#dislike-' + c).text(response.data)
+    })
+})

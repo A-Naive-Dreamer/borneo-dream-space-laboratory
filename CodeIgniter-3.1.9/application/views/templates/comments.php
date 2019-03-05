@@ -32,16 +32,16 @@
                                                 '</div>' .
                                                 '<hr/>' .
                                                 '<div class="statistic">' .
-                                                    '<button class="count" type="button" onmouseover="change1(this)" onclick="likeComment(' . $article['id'] . ', ' .
-                                                        $comment['id'] . ', ' . $x . ')" onmouseleave="change2(this)">' .
+                                                    '<button class="count" type="button" data-ng-mouseover="change1($event)" data-ng-click="likeComment(' . $article['id'] . ', ' .
+                                                        $comment['id'] . ', ' . $x . ')" data-ng-mouseleave="change2($event)">' .
                                                         '<img src="http://localhost/borneo-dream-space-laboratory/media/pictures/web-components/buttons/like-2.png" />' .
                                                     '</button>' .
                                                     '<span id="like-' . $x . '"> ' .
                                                         $comment['likes'] .
                                                     '</span>' .
                                                     ' Like' .
-                                                    '<button class="count" type="button" onmouseover="change3(this)" onclick="dislikeComment(' . $article['id'] . ', ' .
-                                                        $comment['id'] . ', ' . $x . ')" onmouseleave="change4(this)">' .
+                                                    '<button class="count" type="button" data-ng-mouseover="change3($event)" data-ng-click="dislikeComment(' . $article['id'] . ', ' .
+                                                        $comment['id'] . ', ' . $x . ')" data-ng-mouseleave="change4($event)">' .
                                                         '<img src="http://localhost/borneo-dream-space-laboratory/media/pictures/web-components/buttons/dislike-2.png">' .
                                                     '</button>' .
                                                     '<span id="dislike-' . $x . '">' .

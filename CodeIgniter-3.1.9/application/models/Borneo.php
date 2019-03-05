@@ -2,7 +2,7 @@
     defined('BASEPATH') OR exit('No direct script access allowed');
 
     class Borneo extends CI_Model {
-        function get_article(int $id = 1) {
+        function get_article(int $id = 1): array {
             $this -> load -> database();
 
             $query = "SELECT * FROM `articles` WHERE `id` = " . $this -> db -> escape($id) . ";";
@@ -10,7 +10,7 @@
 
             $article = $query -> row_array();
 
-            $this -> db -> free_result();
+            $query -> free_result();
 
             $article['readers'] = ++$article['readers'];
 
@@ -34,7 +34,7 @@
             $this -> db -> close();
         }
 
-        function get_new_articles() {
+        function get_new_articles(): array {
             $this -> load -> database();
 
             $query = "SELECT * FROM `articles` ORDER BY `id` DESC LIMIT 0, 5;";
@@ -42,7 +42,7 @@
 
             $new_articles = $query -> result_array();
 
-            $this -> db -> free_result();
+            $query -> free_result();
 
             for($x = 0; $x < count($new_articles); ++$x) {
                 $row = $this -> get_author($new_articles[$x]['id_author']);
@@ -56,7 +56,7 @@
             return $new_articles;
         }
 
-        function get_articles() {
+        function get_articles(): array {
             $this -> load -> database();
 
             $query = "SELECT * FROM `articles` ORDER BY `id` DESC;";
@@ -69,7 +69,7 @@
             return $articles;
         }
 
-        function get_author(int $id = 1) {
+        function get_author(int $id = 1): array {
             $this -> load -> database();
 
             $query = "SELECT * FROM `authors` WHERE `id` = " . $this -> db -> escape($id) . ";";
@@ -80,7 +80,7 @@
             return $query -> row_array();
         }
 
-        function get_comments(int $id = 1) {
+        function get_comments(int $id = 1): array {
             $this -> load -> database();
 
             $query = "SELECT * FROM `comments` WHERE `article_id` = " . $this -> db -> escape($id) . " ORDER BY `created_date` DESC, `created_time` DESC;";
@@ -108,7 +108,7 @@
             $this -> db -> close();
         }
 
-        function like_comment(int $comment_id = 1) {
+        function like_comment(int $comment_id = 1): int {
             $this -> load -> database();
 
             $query = "SELECT `likes` FROM `comments` WHERE `id` = " . $this -> db -> escape($comment_id) . ";";
@@ -116,7 +116,7 @@
 
             $comment = $query -> row_array();
 
-            $this -> db -> free_result();
+            $query -> free_result();
 
             $comment['likes'] = ++$comment['likes'];
 
@@ -124,9 +124,11 @@
             $query = $this -> db -> simple_query($query);
 
             $this -> db -> close();
+
+            return $comment['likes'];
         }
 
-        function dislike_comment(int $comment_id = 1) {
+        function dislike_comment(int $comment_id = 1): int {
             $this -> load -> database();
 
             $query = "SELECT `dislikes` FROM `comments` WHERE `id` = " . $this -> db -> escape($comment_id) . ";";
@@ -134,7 +136,7 @@
 
             $comment = $query -> row_array();
 
-            $this -> db -> free_result();
+            $query -> free_result();
 
             $comment['dislikes'] = ++$comment['dislikes'];
 
@@ -142,9 +144,11 @@
             $query = $this -> db -> simple_query($query);
 
             $this -> db -> close();
+
+            return $comment['dislikes'];
         }
 
-        function like_article(int $article_id = 1) {
+        function like_article(int $article_id = 1): int {
             $this -> load -> database();
 
             $query = "SELECT `likes` FROM `articles` WHERE `id` = " . $this -> db -> escape($article_id) . ";";
@@ -152,7 +156,7 @@
 
             $article = $query -> row_array();
 
-            $this -> db -> free_result();
+            $query -> free_result();
 
             $article['likes'] = ++$article['likes'];
 
@@ -164,7 +168,7 @@
             return $article['likes'];
         }
 
-        function dislike_article(int $article_id = 1) {
+        function dislike_article(int $article_id = 1): int {
             $this -> load -> database();
 
             $query = "SELECT `dislikes` FROM `articles` WHERE `id` = " . $this -> db -> escape($article_id) . ";";
@@ -172,7 +176,7 @@
 
             $article = $query -> row_array();
 
-            $this -> db -> free_result();
+            $query -> free_result();
 
             $article['dislikes'] = ++$article['dislikes'];
 
@@ -191,7 +195,6 @@
             $title = $this -> input -> post('title');
             $preview = 'http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/media/pictures/' . $preview;
             $content = $this -> input -> post('content');
-
 
             $query = "UPDATE `articles` SET `title` = '" . $this -> db -> escape_str($title) . "', `preview` = '" . $this -> db -> escape_str($preview) . "', " .
                 "`$content` = '" . $this -> db -> escape_str($content) . "' WHERE `id` = " . $this -> db -> escape($article_id) . ";";
@@ -214,7 +217,7 @@
             $this -> db -> close();
         }
 
-        function get_max_id() {
+        function get_max_id(): int {
             $this -> load -> database();
 
             $query = "SELECT `id` FROM `articles` ORDER BY `id` DESC LIMIT 1;";
@@ -227,7 +230,7 @@
             return $row['id'];
         }
 
-        function log_in() {
+        function log_in(): array {
             $this -> load -> database();
 
             $username = $this -> input -> post('username');
@@ -240,7 +243,7 @@
             $row_1 = $query -> row_array();
 
             if($query -> num_rows() > 0) {
-                $this -> db -> free_result();
+                $query -> free_result();
 
                 $query = "SELECT `email` FROM `authors` WHERE `email` = '" . $this -> db -> escape_str($e_mail) . "';";
                 $query = $this -> db -> query($query);
@@ -271,7 +274,7 @@
             return FALSE;
         }
 
-        function get_hash(int $id = 1) {
+        function get_hash(int $id = 1): string {
             $this -> load -> database();
 
             $query = "SELECT `username`, `email`, `password` FROM `authors` WHERE `id` = " . $this -> db -> escape($id) . ";";

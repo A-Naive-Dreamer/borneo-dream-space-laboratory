@@ -8,7 +8,7 @@
             parent::__construct();
         }
 
-        function _remap($method, $params = array()) {
+        function _remap(string $method = 'section', array $params = array('home')) {
             if($method === 'section') {
                 if($params[0] === 'home') {
                     return call_user_func_array(array($this, 'home'), $params);
@@ -32,11 +32,12 @@
             $this -> section('try');
         }
 
-        function section($page = 'home') {
+        function section(string $page = 'home') {
             if(!empty($page)) {
                 $page = ucfirst(htmlspecialchars($page));
 
                 $this -> data['title'] = $page;
+                $this -> data['name'] = 'Yosua';
 
                 if(file_exists(APPPATH . 'views\\pages\\' . $page . '\\index.php')) {
                     $this -> load -> view('templates\\head-1.php', $this -> data);

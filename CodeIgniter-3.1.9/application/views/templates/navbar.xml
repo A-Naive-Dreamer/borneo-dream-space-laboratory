@@ -2,7 +2,7 @@
 <nav id="main-nav">
     <ul>
         <li>
-            <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/home">
+            <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/home">
                 Home
             </a>
         </li>
@@ -39,7 +39,7 @@
             </ul>
         </li>
         <li>
-            <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/home">
+            <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/home">
                 Articles
             </a>
         </li>
@@ -61,6 +61,11 @@
                 <li>
                     <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/term-of-service">
                         Term of Service
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/log-in">
+                        Admin
                     </a>
                 </li>
                 <li>

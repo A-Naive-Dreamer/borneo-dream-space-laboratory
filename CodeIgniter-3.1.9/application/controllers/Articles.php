@@ -15,7 +15,7 @@
             $this -> load -> model('borneo');
         }
 
-        function id($article_id = 1) {
+        function id(int $article_id = 1) {
             $this -> data['article_id'] = $article_id;
 
             if(!empty($this -> data['article_id'])) {
@@ -42,14 +42,14 @@
             }
         }
 
-        function send($form_type = 'comment', $article_id = 1) {
+        function send(string $form_type = 'comment', int $article_id = 1) {
             if($form_type === 'comment') {
                 $this -> borneo -> insert_comment();
                 header('Location: http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/articles/id/' . $article_id);
             }
         }
 
-        function valid_name($name) {
+        function valid_name(string $name) {
             if(preg_match('/^[a-Z0-9]+$/', $name) === 1) {
                 return TRUE;
             }
@@ -58,26 +58,27 @@
                 'valid_name',
                 '{field} hanya boleh terdiri dari huruf dan angka!'
             );
+
             return FALSE;
         }
 
-        function like_comment($article_id, $comment_id, $element_id) {
-            $this -> borneo -> like_comment($comment_id);
+        function like_comment(int $article_id, int $comment_id) {
+            $like = $this -> borneo -> like_comment($comment_id);
 
-            header('Location: http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/articles/id/' . $article_id);
+            echo $like;
         }
 
-        function dislike_comment($article_id, $comment_id, $element_id) {
-            $this -> borneo -> dislike_comment($comment_id);
+        function dislike_comment(int $article_id, int $comment_id) {
+            $dislike = $this -> borneo -> dislike_comment($comment_id);
 
-            header('Location: http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/articles/id/' . $article_id);
+            echo $dislike;
         }
 
-        function like_article($article_id) {
+        function like_article(int $article_id) {
             echo $this -> borneo -> like_article($article_id);
         }
 
-        function dislike_article($article_id) {
+        function dislike_article(int $article_id) {
             echo $this -> borneo -> dislike_article($article_id);
         }
 
@@ -112,7 +113,7 @@
             header('Location: http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/home');
         }
 
-        function update($article_id) {
+        function update(int $article_id) {
             $this -> data['type'] = 'page';
             $this -> data['title'] = 'admin';
             $this -> data['article'] = $this -> borneo -> get_article($article_id);
@@ -126,7 +127,7 @@
             $this -> load -> view('templates/script-dependencies.php', $this -> data);
         }
 
-        function update_2($article_id) {
+        function update_2(int $article_id) {
             $config = array(
                 'upload_path' => './media/pictures',
                 'allowed_types' => 'gif|jpg|png',
