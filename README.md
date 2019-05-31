@@ -13,8 +13,8 @@ This is website built using CodeIgniter, Angular, and JQery.
    - [Installation](#installation)
    - [Usage](#usage)
    - [Screenshots](#screenshots)
-     1. [Home Page](#home-page)
-     2. [Article Page](#article-page)
+     1. [Home Page](#1-home-page)
+     2. [Article Page](#2-article-page)
 4. [Credits](#credits)
 5. [License](#license)
 
@@ -39,11 +39,11 @@ This is website built using CodeIgniter, Angular, and JQery.
 
 ### Screenshots
 
-#### Home Page
+#### 1. Home Page
 
 ![Home Page Screenshot](https://justanaivedreamer.files.wordpress.com/2019/03/home.jpg)
 
-#### Article Page
+#### 2. Article Page
 
 ![Article Page Screenshot](https://justanaivedreamer.files.wordpress.com/2019/03/article.jpg)
 
