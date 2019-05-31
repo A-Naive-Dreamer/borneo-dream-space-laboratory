@@ -9,19 +9,18 @@ This is website built using CodeIgniter, Angular, and JQery.
 1. [Description](#description)
 2. [Table of Contents](#table-of-contents)
 3. [Getting Started](#getting-started)
-   - [Prerequisites](#prerequisites)
+   - [Requirements](#Requirements)
    - [Installation](#installation)
    - [Usage](#usage)
-   - [Previews](#previews)
-     - [Screenshots](#screenshots)
-       - [Home Page](#home-page)
-       - [Article Page](#article-page)
+   - [Screenshots](#screenshots)
+     1. [Home Page](#home-page)
+     2. [Article Page](#article-page)
 4. [Credits](#credits)
 5. [License](#license)
 
 ## Getting Started
 
-### Prerequisites
+### Requirements
 
 1. XAMPP 7.2.6
 
@@ -38,15 +37,13 @@ This is website built using CodeIgniter, Angular, and JQery.
 2. For admin page, type [http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/articles/id/3](http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/articles/id/3) at your browser url field.
 3. For admin username and password, you can type anything you want.
 
-### Previews
+### Screenshots
 
-#### Screenshots
-
-##### Home Page
+#### Home Page
 
 ![Home Page Screenshot](https://justanaivedreamer.files.wordpress.com/2019/03/home.jpg)
 
-##### Article Page
+#### Article Page
 
 ![Article Page Screenshot](https://justanaivedreamer.files.wordpress.com/2019/03/article.jpg)
 
