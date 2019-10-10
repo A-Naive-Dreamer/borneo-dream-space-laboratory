@@ -33,8 +33,8 @@ Blog built using CodeIgniter, Angular, and JQery.
 
 ### Usage
 
-1. For home page, type [http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/home](http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/home) at your browser url field.
-2. For admin page, type [http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/articles/id/3](http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/articles/id/3) at your browser url field.
+1. For home page, type ```http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/home``` at your browser url field.
+2. For admin login page, type ```http://localhost/borneo-dream-space-laboratory/CodeIgniter-3.1.9/index.php/pages/section/log-in``` at your browser url field.
 3. For admin username and password, you can type anything you want.
 
 ### Screenshots
@@ -49,7 +49,7 @@ Blog built using CodeIgniter, Angular, and JQery.
 
 ## Credits
 
-1. [A Naive Dreamer](https://github.com/a-naive-dreamer)
+1. [Atallabela Yosua](https://github.com/a-naive-dreamer)
 
 ## License
 
