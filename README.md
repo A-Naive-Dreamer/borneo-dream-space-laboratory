@@ -2,7 +2,7 @@
 
 ## Description
 
-Blog built using CodeIgniter, Angular, and JQery.
+Blog built using CodeIgniter, AngularJS, and JQuery.
 
 ## Table of Contents
 
